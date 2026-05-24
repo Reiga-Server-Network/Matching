@@ -1,0 +1,8 @@
+name: Matching
+version: '${version}'
+
+main: dev.reigaserver.matching.Matching
+api-version: '26.1.2'
+load: STARTUP
+
+authors: [Ign1s-Reiga]
