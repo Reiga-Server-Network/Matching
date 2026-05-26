@@ -48,8 +48,8 @@ class Matching : JavaPlugin() {
                             getOrNull(Random.nextInt(0, size.coerceAtLeast(1)))
                                 ?.run {
                                     this.players.add(p)
-                                    "キューに登録しました。マッチングするまでお待ちください。"
-                                } ?: "マッチンググループが見つかりませんでした。しばらくしてから再度お試しください。"
+                                    "キューに登録しました。マッチングするまでお待ちください"
+                                } ?: "マッチンググループが見つかりませんでした。しばらくしてから再度お試しください"
                         }
                 }
                 it.source.sender.sendMessage(Component.text(resultMsg))
@@ -60,15 +60,16 @@ class Matching : JavaPlugin() {
             .requires { it.sender is Player }
             .executes {
                 val p = it.source.sender as Player
-                synchronized(matchingGroups) {
+                val resultMsg = synchronized(matchingGroups) {
                     matchingGroups.values
                         .find { m -> m.players.contains(p) }
                         ?.run {
                             this.players.remove(p)
-                        }
+                            "キューから離脱しました"
+                        } ?: "現在キューに登録されていません"
                 }
 
-                it.source.sender.sendMessage(Component.text("Dequeued"))
+                it.source.sender.sendMessage(Component.text(resultMsg))
                 Command.SINGLE_SUCCESS
             }
         val helpSubCommand = Commands.literal("help")
