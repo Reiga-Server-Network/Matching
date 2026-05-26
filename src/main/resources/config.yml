@@ -1,0 +1,4 @@
+minPlayers: 5
+allowForceStart: false
+disbandAfterMinutes: 5
+onMatch: "/say Matched!"
